@@ -19,9 +19,7 @@
 
 Everything is public so that everyone can contribute.
 
-### Recording
 
-[![Kube Simplify: Kubernetes Observability workshop](https://img.youtube.com/vi/sMEEVbZ4NFM/0.jpg)](https://www.youtube.com/watch?v=sMEEVbZ4NFM)
 
 ## Repository
 
