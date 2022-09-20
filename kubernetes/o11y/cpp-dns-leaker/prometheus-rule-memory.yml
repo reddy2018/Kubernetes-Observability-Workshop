@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: kube-prometheus-stack
+  name: container-rss-memory-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: critical-rules
+    rules:
+    - alert: ContainerMemoryLimit
+      expr: container_memory_rss{container=~"cpp-dns-leaker-service.*"} > 10*1024*1024
+      # Use short trigger time for the demo
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: Container RSS Memory over the threshold
+        description: "Container RSS Memory critical\n {{ $labels.instance }}"
+

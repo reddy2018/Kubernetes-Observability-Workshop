@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: kube-prometheus-stack
+  name: podtato-head-probe-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: critical-rules
+    rules:
+    - alert: ProbeFailing
+      expr: up{job="probe/monitoring/podtato-head-blackbox-exporter", environment="podtato-head"} == 0 or probe_success{job="probe/monitoring/podtato-head-blackbox-exporter", environment="podtato-head"} == 0
+      # Use short trigger time for the workshop
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: Podtato-head probe Down
+        description: "Podtato-head probe is Down\n {{ $labels.instance }}"

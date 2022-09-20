@@ -1,0 +1,108 @@
+---
+# A deployment for the cpp-dns-leaker service with 2 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpp-dns-leaker-service-o11y
+  labels:
+    app: cpp-dns-leaker-service-o11y
+    hostname: o11y.love
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cpp-dns-leaker-service-o11y
+  template:
+    metadata:
+      labels:
+        app: cpp-dns-leaker-service-o11y
+    spec:
+      containers:
+      - name: cpp-dns-leaker-service-o11y
+        image: registry.gitlab.com/everyonecancontribute/observability/cpp-dns-leaker:latest
+        imagePullPolicy: Always
+        env:
+        - name: DNS_HOSTNAME
+          value: "o11y.love"
+
+---
+# A deployment for the cpp-dns-leaker service with 1 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpp-dns-leaker-service-cncf
+  labels:
+    app: cpp-dns-leaker-service
+    hostname: cncf.io
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpp-dns-leaker-service-cncf
+  template:
+    metadata:
+      labels:
+        app: cpp-dns-leaker-service-cncf
+    spec:
+      containers:
+      - name: cpp-dns-leaker-service-cncf
+        image: registry.gitlab.com/everyonecancontribute/observability/cpp-dns-leaker:latest
+        imagePullPolicy: Always
+        env:
+        - name: DNS_HOSTNAME
+          value: "cncf.io"
+
+---
+# A deployment for the cpp-dns-leaker service with 1 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpp-dns-leaker-service-gitlab
+  labels:
+    app: cpp-dns-leaker-service-gitlab
+    hostname: gitlab.com
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpp-dns-leaker-service-gitlab
+  template:
+    metadata:
+      labels:
+        app: cpp-dns-leaker-service-gitlab
+    spec:
+      containers:
+      - name: cpp-dns-leaker-service-gitlab
+        image: registry.gitlab.com/everyonecancontribute/observability/cpp-dns-leaker:latest
+        imagePullPolicy: Always
+        env:
+        - name: DNS_HOSTNAME
+          value: "gitlab.com"
+
+
+---
+# A deployment for the cpp-dns-leaker service with 1 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpp-dns-leaker-service-kubesimplify
+  labels:
+    app: cpp-dns-leaker-service-kubesimplify
+    hostname: kubesimplify.com
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpp-dns-leaker-service-kubesimplify
+  template:
+    metadata:
+      labels:
+        app: cpp-dns-leaker-service-kubesimplify
+    spec:
+      containers:
+      - name: cpp-dns-leaker-service-kubesimplify
+        image: registry.gitlab.com/everyonecancontribute/observability/cpp-dns-leaker:latest
+        imagePullPolicy: Always
+        env:
+        - name: DNS_HOSTNAME
+          value: "kubesimplify.com"

@@ -1,0 +1,23 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  labels:
+    app.kubernetes.io/component: exporter
+    app.kubernetes.io/name: blackbox-exporter
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 0.19.0
+  name: podtato-head-blackbox-exporter
+  namespace: monitoring
+spec:
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:19115
+  targets:
+    staticConfig:
+      labels:
+        environment: podtato-head
+      static:
+      - "podtato-head-entry.podtato-kubectl.svc.cluster.local:9000"
+      # URL depends on NodePort type in podtato-head/manifest.yml
+      # Debug DNS resolution: https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/ 

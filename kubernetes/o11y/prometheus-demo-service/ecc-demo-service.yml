@@ -1,0 +1,40 @@
+---
+# A deployment for the ECC Prometheus demo service with 3 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecc-demo-service
+  labels:
+    app: ecc-demo-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ecc-demo-service
+  template:
+    metadata:
+      labels:
+        app: ecc-demo-service
+    spec:
+      containers:
+      - name: ecc-demo-service
+        image: registry.gitlab.com/everyonecancontribute/observability/prometheus_demo_service:latest
+        imagePullPolicy: IfNotPresent
+        args:
+        - -listen-address=:80
+        ports:
+        - containerPort: 80
+---
+# A service that references the demo service deployment.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecc-demo-service
+  labels:
+    app: ecc-demo-service
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: ecc-demo-service
